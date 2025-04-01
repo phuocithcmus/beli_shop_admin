@@ -77,9 +77,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
           description: 'Product updated successfully.',
         })
       } else {
-        await BeliShopService.instance.createRevenues({
-          ...values,
-        })
+        await BeliShopService.instance.createRevenues(values)
         toast({
           title: 'Success',
           description: 'Product created successfully.',

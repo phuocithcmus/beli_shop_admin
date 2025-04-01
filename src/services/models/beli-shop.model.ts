@@ -41,7 +41,7 @@ export interface Revenue {
   amount: number
   createdAt: number
   updatedAt: number
-  fees: string
+  fees?: string
 }
 
 // POST
@@ -75,5 +75,5 @@ export interface CreateRevenueDto {
   revenue: number
   productId: string
   amount: number
-  fees: string
+  fees?: string | undefined
 }
