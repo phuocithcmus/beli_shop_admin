@@ -20,8 +20,8 @@ export interface Product {
   code: string
   productType: string
   formType: string
+  phaseName: string
   phaseCode: string
-  entryDate: number
   amount: number
   transferFee: number
   remainingAmount: number
@@ -29,6 +29,7 @@ export interface Product {
   updatedAt: number
   size: string
   color: string
+  price: number
 }
 
 export interface Revenue {
@@ -37,11 +38,19 @@ export interface Revenue {
   price: number
   sellPrice: number
   revenue: number
-  productId: string
   amount: number
+  fees: RevenueFee[]
+  productId: string
+  productCode: string
   createdAt: number
   updatedAt: number
-  fees?: string
+  receivedAmount: number
+}
+
+export interface RevenueFee {
+  type: string
+  channel: string
+  price: number
 }
 
 // POST
@@ -61,7 +70,7 @@ export interface CreateProductDto {
   productType: string
   formType: string
   phaseCode: string
-  entryDate: number
+  price: number
   amount: number
   transferFee: number
   size: string
@@ -72,8 +81,7 @@ export interface CreateRevenueDto {
   channel: string
   price: number
   sellPrice: number
-  revenue: number
+  receivedAmount: number
   productId: string
   amount: number
-  fees?: string | undefined
 }

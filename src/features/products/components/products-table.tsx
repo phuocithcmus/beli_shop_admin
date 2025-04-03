@@ -14,7 +14,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { Phase, Product } from '@/services/models/beli-shop.model'
+import { Product } from '@/services/models/beli-shop.model'
 import {
   Table,
   TableBody,
@@ -24,7 +24,6 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useProducts } from '../context/products-context'
-import { DataTablePagination } from './data-table-pagination'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -127,7 +126,7 @@ export function ProductsTable({ columns }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {/* <DataTablePagination table={table} /> */}
     </div>
   )
 }

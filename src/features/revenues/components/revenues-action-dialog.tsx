@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { RevenueChannel } from '@/constants'
+import { BeliPlatform } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Fee, Product } from '@/services/models/beli-shop.model'
 import { Loader2 } from 'lucide-react'
@@ -34,10 +34,9 @@ const formSchema = z.object({
   channel: z.string(),
   price: z.number(),
   sellPrice: z.number(),
-  revenue: z.number(),
+  receivedAmount: z.number(),
   productId: z.string(),
   amount: z.number(),
-  fees: z.string().optional(),
 })
 type ProductForm = z.infer<typeof formSchema>
 
@@ -58,10 +57,9 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       channel: undefined,
       price: undefined,
       sellPrice: undefined,
-      revenue: undefined,
+      receivedAmount: undefined,
       productId: undefined,
       amount: undefined,
-      fees: undefined,
     },
   })
   const { refetchRevenues } = useRevenues()
@@ -124,11 +122,8 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
   }, [products])
 
   const ChannelsOptions = [
-    { label: 'Shopee', value: RevenueChannel.Shopee },
-    { label: 'Tiktok', value: RevenueChannel.Tiktok },
-    { label: 'Facebook', value: RevenueChannel.Facebook },
-    { label: 'Instagram', value: RevenueChannel.Instagram },
-    { label: 'Other', value: RevenueChannel.Other },
+    { label: 'Shopee', value: BeliPlatform.Shopee },
+    { label: 'Tiktok', value: BeliPlatform.Tiktok },
   ]
 
   return (
@@ -247,11 +242,11 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
               />
               <FormField
                 control={form.control}
-                name='revenue'
+                name='receivedAmount'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Revenue
+                      Received Amount
                     </FormLabel>
                     <FormControl>
                       <Input

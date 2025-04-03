@@ -1,4 +1,4 @@
-export enum FeePlatform {
+export enum BeliPlatform {
   Shopee = 'SHOPEE',
   Tiktok = 'TIKTOK',
 }
@@ -40,13 +40,4 @@ export enum ProductColor {
   XanhDuong = 'XANH_DUONG',
   XanhLa = 'XANH_LA',
   Bac = 'BAC',
-}
-
-export enum RevenueChannel {
-  Shopee = 'SHOPEE',
-  Tiktok = 'TIKTOK',
-  Facebook = 'FACEBOOK',
-  Instagram = 'INSTAGRAM',
-  Website = 'WEBSITE',
-  Other = 'OTHER',
 }

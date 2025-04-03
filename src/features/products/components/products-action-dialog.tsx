@@ -2,9 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { z } from 'zod'
-import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
-import { CalendarIcon } from '@radix-ui/react-icons'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ProductColor,
@@ -15,10 +13,8 @@ import {
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Fee, Phase } from '@/services/models/beli-shop.model'
 import { Loader2 } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
 import {
   Dialog,
   DialogContent,
@@ -36,11 +32,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { useProducts } from '../context/products-context'
 
@@ -51,8 +42,8 @@ const formSchema = z.object({
   formType: z.string().min(3),
   amount: z.number(),
   transferFee: z.number(),
-  entryDate: z.number(),
   remainingAmount: z.number(),
+  price: z.number(),
   size: z.string(),
   color: z.string(),
 })
@@ -78,7 +69,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       formType: undefined,
       amount: undefined,
       transferFee: undefined,
-      entryDate: undefined,
+      price: undefined,
       remainingAmount: undefined,
     },
   })
@@ -97,7 +88,6 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       } else {
         await BeliShopService.instance.createProduct({
           ...values,
-          entryDate: values.entryDate / 1000,
         })
         toast({
           title: 'Success',
@@ -258,37 +248,20 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
               />
               <FormField
                 control={form.control}
-                name='entryDate'
+                name='price'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Date of birth
+                      Price
                     </FormLabel>
                     <FormControl>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button variant={'outline'} className='col-span-4'>
-                            {field.value ? (
-                              format(field.value, 'MMM d, yyyy')
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className='w-auto p-0' align='start'>
-                          <Calendar
-                            mode='single'
-                            selected={new Date(field.value)}
-                            onSelect={(evt) => {
-                              evt && field.onChange(evt.getTime())
-                            }}
-                            disabled={(date: Date) =>
-                              date > new Date() || date < new Date('1900-01-01')
-                            }
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <Input
+                        placeholder='Enter amount'
+                        className='col-span-4'
+                        onChange={(e) => {
+                          field.onChange(parseInt(e.target.value))
+                        }}
+                      />
                     </FormControl>
 
                     <FormMessage />
