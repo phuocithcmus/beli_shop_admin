@@ -2,7 +2,7 @@ import { useRevenues } from '../context/revenues-context'
 import { PhasesActionDialog } from './revenues-action-dialog'
 
 export function RevenuesDialogs() {
-  const { currentRow, open, setCurrentRow, setOpen } = useRevenues()
+  const { open, setOpen } = useRevenues()
   return (
     <>
       <PhasesActionDialog

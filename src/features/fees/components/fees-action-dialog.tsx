@@ -3,7 +3,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FeePlatform, FeeType } from '@/constants'
+import { BeliPlatform, FeeType } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Fee } from '@/services/models/beli-shop.model'
 import { Loader2 } from 'lucide-react'
@@ -43,8 +43,8 @@ interface Props {
 }
 
 const PlatformOptions = [
-  { label: 'Shopee', value: FeePlatform.Shopee },
-  { label: 'Tiktok', value: FeePlatform.Tiktok },
+  { label: 'Shopee', value: BeliPlatform.Shopee },
+  { label: 'Tiktok', value: BeliPlatform.Tiktok },
 ]
 
 const FeeTypeOptions = [

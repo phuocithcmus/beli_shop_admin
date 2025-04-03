@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react'
-import { BeliShopService } from '@/services/beli-shop.service'
-import { Fee } from '@/services/models/beli-shop.model'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'

@@ -2,7 +2,7 @@ import { useProducts } from '../context/products-context'
 import { PhasesActionDialog } from './products-action-dialog'
 
 export function ProductsDialogs() {
-  const { currentRow, open, setCurrentRow, setOpen } = useProducts()
+  const { open, setOpen } = useProducts()
   return (
     <>
       <PhasesActionDialog

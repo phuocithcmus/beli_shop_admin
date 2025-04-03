@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Fee } from '@/services/models/beli-shop.model'
-import { cn, formatNumber } from '@/lib/utils'
+import { formatNumber } from '@/lib/utils'
 import LongText from '@/components/long-text'
 import { DataTableColumnHeader } from './data-table-column-header'
 

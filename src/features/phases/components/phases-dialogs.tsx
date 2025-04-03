@@ -2,7 +2,7 @@ import { usePhases } from '../context/phases-context'
 import { PhasesActionDialog } from './phases-action-dialog'
 
 export function FeesDialogs() {
-  const { currentRow, open, setCurrentRow, setOpen } = usePhases()
+  const { open, setOpen } = usePhases()
   return (
     <>
       <PhasesActionDialog

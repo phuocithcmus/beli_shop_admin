@@ -108,8 +108,6 @@ export class HttpClient {
       }
 
       const message = responseData?.message || response.statusText
-      const code =
-        responseData?.code || responseData?.errorCode || response.status
 
       throw new Error(message)
     } catch (e: any) {
@@ -152,8 +150,6 @@ export class HttpClient {
       }
 
       const message = responseData?.message || response.statusText
-      const code =
-        responseData?.code || responseData?.errorCode || response.status
 
       if (message === 'Network request failed' && !_retryCount) {
         return this.post(path, data, initConfig, 1)

@@ -2,7 +2,7 @@ import { useFees } from '../context/fees-context'
 import { FeesActionDialog } from './fees-action-dialog'
 
 export function FeesDialogs() {
-  const { currentRow, open, setCurrentRow, setOpen } = useFees()
+  const { open, setOpen } = useFees()
   return (
     <>
       <FeesActionDialog

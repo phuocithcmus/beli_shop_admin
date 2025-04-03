@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { Product, Revenue } from '@/services/models/beli-shop.model'
+import { Revenue } from '@/services/models/beli-shop.model'
 import { formatCurrency } from '@/lib/utils'
 import { DataTableColumnHeader } from './data-table-column-header'
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { BeliShopService } from '@/services/beli-shop.service'
-import { Product, Revenue } from '@/services/models/beli-shop.model'
+import { Revenue } from '@/services/models/beli-shop.model'
 import useDialogState from '@/hooks/use-dialog-state'
 
 type RevenuesDialogType = 'invite' | 'add' | 'edit' | 'delete'
