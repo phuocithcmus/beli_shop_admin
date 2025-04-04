@@ -124,6 +124,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
   const ChannelsOptions = [
     { label: 'Shopee', value: BeliPlatform.Shopee },
     { label: 'Tiktok', value: BeliPlatform.Tiktok },
+    { label: 'Tay', value: BeliPlatform.TAY },
   ]
 
   return (
