@@ -7,8 +7,7 @@
       "script": "npx",
       "args": " serve dist/ --single -p 3002", // Correct argument format for serving an SPA on port 3000
       "env": {
-        "NODE_ENV": "production",
-        "VITE_API_URL": "https://beli-api.phuocnd.xyz/api/v1"
+        "NODE_ENV": "production"
       },
       "instances": 1, // pm2 instance count
       "autorestart": true, // auto restart if process crash
