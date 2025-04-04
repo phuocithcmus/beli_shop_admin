@@ -8,7 +8,7 @@ export function RevenuesPrimaryButtons() {
   return (
     <div className='flex gap-2'>
       <Button className='space-x-1' onClick={() => setOpen('add')}>
-        <span>Add Revenue</span> <IconUserPlus size={18} />
+        <span>Tao doanh thu</span> <IconUserPlus size={18} />
       </Button>
     </div>
   )

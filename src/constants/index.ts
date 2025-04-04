@@ -1,6 +1,7 @@
 export enum BeliPlatform {
   Shopee = 'SHOPEE',
   Tiktok = 'TIKTOK',
+  TAY = 'TAY',
 }
 
 export enum FeeType {

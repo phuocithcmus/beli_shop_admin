@@ -45,12 +45,12 @@ interface Props {
 const PlatformOptions = [
   { label: 'Shopee', value: BeliPlatform.Shopee },
   { label: 'Tiktok', value: BeliPlatform.Tiktok },
+  { label: 'Tay', value: BeliPlatform.TAY },
 ]
 
 const FeeTypeOptions = [
-  { label: 'Shipping', value: FeeType.Shipping },
-  { label: 'Commission', value: FeeType.Commission },
-  { label: 'Service', value: FeeType.Service },
+  { label: 'Phi van chuyen', value: FeeType.Shipping },
+  { label: 'Phi quang cao', value: FeeType.Commission },
 ]
 
 export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
@@ -115,7 +115,7 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
     >
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
-          <DialogTitle>{isEdit ? 'Edit User' : 'Add New User'}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit User' : 'Tao Phi'}</DialogTitle>
           <DialogDescription>
             {isEdit ? 'Update the user here. ' : 'Create new user here. '}
             Click save when you&apos;re done.
@@ -134,13 +134,13 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Fee Platform
+                      Kenh ban
                     </FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select a platform'
+                        placeholder='chon kenh ban'
                         className='col-span-4'
                         items={PlatformOptions.map(({ label, value }) => ({
                           label,
@@ -158,13 +158,13 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Fee Type
+                      Loai phi
                     </FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select a type'
+                        placeholder='Chon loai phi'
                         className='col-span-4'
                         items={FeeTypeOptions.map(({ label, value }) => ({
                           label,
@@ -182,11 +182,11 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Fee Amount
+                      Tong phi
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter fee amount'
+                        placeholder='Nhap tong phi'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
