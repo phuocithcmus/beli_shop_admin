@@ -22,8 +22,8 @@ export default function Fees() {
       <Main>
         <div className='mb-2 flex flex-wrap items-center justify-between space-y-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Fees List</h2>
-            <p className='text-muted-foreground'>Manage your fees.</p>
+            <h2 className='text-2xl font-bold tracking-tight'>Danh sach Phi</h2>
+            {/* <p className='text-muted-foreground'>Quan ly phi.</p> */}
           </div>
           <FeesPrimaryButtons />
         </div>

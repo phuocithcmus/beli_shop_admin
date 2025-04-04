@@ -126,7 +126,6 @@ export function ProductsTable({ columns }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      {/* <DataTablePagination table={table} /> */}
     </div>
   )
 }

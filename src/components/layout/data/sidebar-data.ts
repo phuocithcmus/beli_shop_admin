@@ -17,9 +17,9 @@ export const sidebarData: SidebarData = {
   },
   teams: [
     {
-      name: 'Shadcn Admin',
+      name: 'Beli Shop',
       logo: Command,
-      plan: 'Vite + ShadcnUI',
+      plan: '',
     },
     {
       name: 'Acme Inc',
@@ -42,22 +42,22 @@ export const sidebarData: SidebarData = {
           icon: IconLayoutDashboard,
         },
         {
-          title: 'Fees',
+          title: 'Phi',
           url: '/fees',
           icon: IconChecklist,
         },
         {
-          title: 'Phases',
+          title: 'Dot',
           url: '/phases',
           icon: IconListDetails,
         },
         {
-          title: 'Products',
+          title: 'San pham',
           url: '/products',
           icon: IconBrandProducthunt,
         },
         {
-          title: 'Revenues',
+          title: 'Doanh thu',
           url: '/revenues',
           icon: IconPackages,
         },

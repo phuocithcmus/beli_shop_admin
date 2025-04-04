@@ -136,7 +136,9 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
     >
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
-          <DialogTitle>{isEdit ? 'Edit User' : 'Add New Revenue'}</DialogTitle>
+          <DialogTitle>
+            {isEdit ? 'Edit User' : 'Tao moi doanh thu'}
+          </DialogTitle>
           <DialogDescription>
             Click save when you&apos;re done.
           </DialogDescription>
@@ -154,13 +156,13 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Channel
+                      Kenh ban
                     </FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select channel'
+                        placeholder='Chon kenh ban'
                         className='col-span-4'
                         items={ChannelsOptions.map(({ label, value }) => ({
                           label,
@@ -178,12 +180,10 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 name='price'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>
-                      Price
-                    </FormLabel>
+                    <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter price'
+                        placeholder='Nhap gia'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
@@ -200,11 +200,11 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Sell price
+                      Gia ban
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter sell price'
+                        placeholder='Nhap gia ban'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
@@ -222,13 +222,13 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Product
+                      San pham
                     </FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select product type'
+                        placeholder='chon san pham'
                         className='col-span-4'
                         items={ProductsOptions.map(({ label, value }) => ({
                           label,
@@ -246,11 +246,11 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Received Amount
+                      Tien nhan duoc
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter revenue'
+                        placeholder='Nhap so tien'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
@@ -267,11 +267,11 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Amount
+                      So luong
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter amount'
+                        placeholder='Nhap so luong'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
@@ -292,7 +292,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
             form='user-form'
           >
             {isSubmitting === true && <Loader2 className='animate-spin' />}
-            Save changes
+            Luu
           </Button>
         </DialogFooter>
       </DialogContent>

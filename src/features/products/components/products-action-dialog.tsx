@@ -188,7 +188,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
     >
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
-          <DialogTitle>{isEdit ? 'Edit User' : 'Add New Products'}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit User' : 'Tao moi san pham'}</DialogTitle>
           <DialogDescription>
             Click save when you&apos;re done.
           </DialogDescription>
@@ -206,12 +206,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Code
+                      Ma san pham
                     </FormLabel>
                     <FormControl>
                       <Input
                         disabled
-                        placeholder='Code auto generated'
+                        placeholder='Tu dong tao ma san pham'
                         className='col-span-4'
                         {...field}
                         value={field.value}
@@ -228,13 +228,13 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Phase Code
+                      Ma dot
                     </FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select phase code'
+                        placeholder='Chon ma dot'
                         className='col-span-4'
                         items={PhaseOptions.map(({ label, value }) => ({
                           label,
@@ -251,12 +251,10 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 name='price'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>
-                      Price
-                    </FormLabel>
+                    <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter amount'
+                        placeholder='Nhap gia'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
@@ -274,13 +272,13 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Product Type
+                      Loai San pham
                     </FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select product type'
+                        placeholder='Chon loai san pham'
                         className='col-span-4'
                         items={ProductTypeOptions.map(({ label, value }) => ({
                           label,
@@ -298,13 +296,13 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Product Form Type
+                      Form San pham
                     </FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select product form type'
+                        placeholder='chon form san pham'
                         className='col-span-4'
                         items={ProductFormTypeOptions.map(
                           ({ label, value }) => ({
@@ -324,13 +322,13 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Product Size
+                      Size
                     </FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select size'
+                        placeholder='chon size'
                         className='col-span-4'
                         items={ProductSizeOptions.map(({ label, value }) => ({
                           label,
@@ -347,14 +345,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 name='color'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>
-                      Product Color
-                    </FormLabel>
+                    <FormLabel className='col-span-2 text-right'>Mau</FormLabel>
                     <FormControl>
                       <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
-                        placeholder='Select color'
+                        placeholder='chon mau'
                         className='col-span-4'
                         items={ProductColorOptions.map(({ label, value }) => ({
                           label,
@@ -372,11 +368,11 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Amount
+                      So luong
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter amount'
+                        placeholder='so luong'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
@@ -393,11 +389,11 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Transfer Fee
+                      Phi van chuyen
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter transfer fee'
+                        placeholder='nhap phi van chuyen'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
@@ -414,11 +410,11 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Remaining Amount
+                      So luong con lai
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Enter remaining amount'
+                        placeholder='nahp so luong con lai'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))
@@ -439,7 +435,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
             form='user-form'
           >
             {isSubmitting === true && <Loader2 className='animate-spin' />}
-            Save changes
+            Luu
           </Button>
         </DialogFooter>
       </DialogContent>

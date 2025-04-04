@@ -127,7 +127,6 @@ export function PhasesTable({ columns }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
     </div>
   )
 }

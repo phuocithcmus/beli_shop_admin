@@ -35,27 +35,19 @@ export const columns: ColumnDef<Fee>[] = [
   //   enableSorting: false,
   //   enableHiding: false,
   // },
-  {
-    accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Id' />
-    ),
-    cell: ({ row }) => (
-      <LongText className='max-w-30'>{row.getValue('id')}</LongText>
-    ),
-    // meta: {
-    //   className: cn(
-    //     'drop-shadow-[0_1px_2px_rgb(0_0_0_/_0.1)] dark:drop-shadow-[0_1px_2px_rgb(255_255_255_/_0.1)] lg:drop-shadow-none',
-    //     'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
-    //     'sticky left-6 md:table-cell'
-    //   ),
-    // },
-    // enableHiding: false,
-  },
+  // {
+  //   accessorKey: 'id',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title='Id' />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <LongText className='max-w-30'>{row.getValue('id')}</LongText>
+  //   ),
+  // },
   {
     id: 'feePlatform',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Platform' />
+      <DataTableColumnHeader column={column} title='Kenh ban' />
     ),
     cell: ({ row }) => {
       const { feePlatform } = row.original
@@ -66,7 +58,7 @@ export const columns: ColumnDef<Fee>[] = [
   {
     accessorKey: 'feeType',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Type' />
+      <DataTableColumnHeader column={column} title='Loai' />
     ),
     cell: ({ row }) => (
       <div className='w-fit text-nowrap'>{row.getValue('feeType')}</div>
@@ -75,7 +67,7 @@ export const columns: ColumnDef<Fee>[] = [
   {
     accessorKey: 'feeAmount',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Amount' />
+      <DataTableColumnHeader column={column} title='Tong phi' />
     ),
     cell: ({ row }) => <div>{formatNumber(row.getValue('feeAmount'))}</div>,
     enableSorting: false,

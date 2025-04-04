@@ -22,8 +22,8 @@ export default function Phases() {
       <Main>
         <div className='mb-2 flex flex-wrap items-center justify-between space-y-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>Phases List</h2>
-            <p className='text-muted-foreground'>Manage your phases</p>
+            <h2 className='text-2xl font-bold tracking-tight'>Danh sach Dot</h2>
+            {/* <p className='text-muted-foreground'>Manage your phases</p> */}
           </div>
           <PhasesPrimaryButtons />
         </div>
