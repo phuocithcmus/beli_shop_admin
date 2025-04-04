@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BeliPlatform } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
-import { Fee, Product } from '@/services/models/beli-shop.model'
+import { Fee, Phase, Product } from '@/services/models/beli-shop.model'
+import { useNumberFormat } from '@react-input/number-format'
 import { Loader2 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
@@ -37,6 +38,7 @@ const formSchema = z.object({
   receivedAmount: z.number(),
   productId: z.string(),
   amount: z.number(),
+  phaseCode: z.string().optional(),
 })
 type ProductForm = z.infer<typeof formSchema>
 
@@ -50,6 +52,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
   const isEdit = !!currentRow
 
   const [products, setProducts] = useState<Product[]>([])
+  const [phases, setPhases] = useState<Phase[]>([])
+
+  const inputRef = useNumberFormat({
+    locales: 'en',
+    maximumFractionDigits: 2,
+  })
 
   const form = useForm<ProductForm>({
     resolver: zodResolver(formSchema),
@@ -60,6 +68,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       receivedAmount: undefined,
       productId: undefined,
       amount: undefined,
+      phaseCode: undefined,
     },
   })
   const { refetchRevenues } = useRevenues()
@@ -105,9 +114,23 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
     onOpenChange(false)
   }
 
-  const fetchPhases = async () => {
-    const fees = await BeliShopService.instance.getProducts()
+  const phasesCode = form.watch('phaseCode')
+
+  const fetchProducts = async (phasesCode?: string) => {
+    if (!phasesCode) {
+      return
+    }
+    const fees = await BeliShopService.instance.getProductsByPhaseId(phasesCode)
     setProducts(fees)
+  }
+
+  useEffect(() => {
+    fetchProducts(phasesCode)
+  }, [phasesCode])
+
+  const fetchPhases = async () => {
+    const phases = await BeliShopService.instance.getPhase()
+    setPhases(phases)
   }
 
   useEffect(() => {
@@ -115,11 +138,18 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
   }, [])
 
   const ProductsOptions = useMemo(() => {
-    return products.map((phase) => ({
-      label: phase.code,
-      value: phase.id,
+    return products.map((product) => ({
+      label: product.code,
+      value: product.id,
     }))
   }, [products])
+
+  const PhasesOptions = useMemo(() => {
+    return phases.map((phase) => ({
+      label: phase.phaseName,
+      value: phase.phaseCode,
+    }))
+  }, [phases])
 
   const ChannelsOptions = [
     { label: 'Shopee', value: BeliPlatform.Shopee },
@@ -178,45 +208,27 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
 
               <FormField
                 control={form.control}
-                name='price'
+                name='phaseCode'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
+                    <FormLabel className='col-span-2 text-right'>Dot</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder='Nhap gia'
+                      <SelectDropdown
+                        defaultValue={field.value}
+                        onValueChange={field.onChange}
+                        placeholder='Chon dot'
                         className='col-span-4'
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
-                        }}
+                        items={PhasesOptions.map(({ label, value }) => ({
+                          label,
+                          value,
+                        }))}
                       />
                     </FormControl>
                     <FormMessage className='col-span-4 col-start-3' />
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name='sellPrice'
-                render={({ field }) => (
-                  <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>
-                      Gia ban
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder='Nhap gia ban'
-                        className='col-span-4'
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
-                        }}
-                      />
-                    </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name='productId'
@@ -241,6 +253,51 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name='price'
+                render={({ field }) => (
+                  <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
+                    <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
+                    <FormControl>
+                      <Input
+                        ref={inputRef}
+                        placeholder='Nhap gia'
+                        className='col-span-4'
+                        onChange={(e) => {
+                          field.onChange(parseInt(e.target.value))
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage className='col-span-4 col-start-3' />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='sellPrice'
+                render={({ field }) => (
+                  <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
+                    <FormLabel className='col-span-2 text-right'>
+                      Gia ban
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        ref={inputRef}
+                        placeholder='Nhap gia ban'
+                        className='col-span-4'
+                        onChange={(e) => {
+                          field.onChange(parseInt(e.target.value))
+                        }}
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name='receivedAmount'
@@ -251,6 +308,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        ref={inputRef}
                         placeholder='Nhap so tien'
                         className='col-span-4'
                         onChange={(e) => {
@@ -272,6 +330,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        ref={inputRef}
                         placeholder='Nhap so luong'
                         className='col-span-4'
                         onChange={(e) => {

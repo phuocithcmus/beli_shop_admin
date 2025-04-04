@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { BeliPlatform, FeeType } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Fee } from '@/services/models/beli-shop.model'
+import { useNumberFormat } from '@react-input/number-format'
 import { Loader2 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
@@ -63,6 +64,12 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
       feeType: '',
     },
   })
+
+  const inputRef = useNumberFormat({
+    locales: 'en',
+    maximumFractionDigits: 2,
+  })
+
   const { refetchFees } = useFees()
 
   const { isSubmitting } = form.formState
@@ -186,6 +193,7 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        ref={inputRef}
                         placeholder='Nhap tong phi'
                         className='col-span-4'
                         onChange={(e) => {
@@ -207,7 +215,7 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
             form='user-form'
           >
             {isSubmitting === true && <Loader2 className='animate-spin' />}
-            Save changes
+            Luu
           </Button>
         </DialogFooter>
       </DialogContent>

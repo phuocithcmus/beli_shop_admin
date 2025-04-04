@@ -34,6 +34,13 @@ class BeliShopService {
     return response
   }
 
+  public async getProductsByPhaseId(phaseCode: string): Promise<Product[]> {
+    const response = await this.httpClient.get<Product[]>(
+      `/product/${phaseCode}`
+    )
+    return response
+  }
+
   public async getRevenues(): Promise<Revenue[]> {
     const response = await this.httpClient.get<Revenue[]>('/revenue')
     return response

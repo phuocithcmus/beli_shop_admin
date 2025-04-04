@@ -109,7 +109,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
 
   useEffect(() => {
     if (!isEdit && date) {
-      const date_nhap = moment(date).format('DD-MM-yyyy-HH:mm:ss')
+      const date_nhap = moment(date).format('DD-MM-yyyy-HH-mm-ss')
 
       form.setValue('phaseCode', date_nhap)
     }

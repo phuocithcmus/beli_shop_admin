@@ -5,6 +5,17 @@ import { DataTableColumnHeader } from './data-table-column-header'
 
 export const columns: ColumnDef<Revenue>[] = [
   {
+    accessorKey: 'productCode',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='San pham' />
+    ),
+    cell: ({ row }) => {
+      const { productCode } = row.original
+      return <div>{productCode}</div>
+    },
+    meta: { className: 'w-36' },
+  },
+  {
     id: 'channel',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Kenh ban' />
@@ -38,17 +49,6 @@ export const columns: ColumnDef<Revenue>[] = [
     ),
   },
   {
-    accessorKey: 'revenue',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Loi nhuan' />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap'>
-        {formatCurrency(row.getValue('revenue'))}
-      </div>
-    ),
-  },
-  {
     accessorKey: 'amount',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='So luong' />
@@ -65,6 +65,17 @@ export const columns: ColumnDef<Revenue>[] = [
     cell: ({ row }) => (
       <div className='w-fit text-nowrap'>
         {formatCurrency(row.getValue('receivedAmount'))}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'revenue',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Loi nhuan' />
+    ),
+    cell: ({ row }) => (
+      <div className='w-fit text-nowrap'>
+        {formatCurrency(row.getValue('revenue'))}
       </div>
     ),
   },

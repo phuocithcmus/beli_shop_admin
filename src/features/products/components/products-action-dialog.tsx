@@ -12,6 +12,7 @@ import {
 } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Fee, Phase } from '@/services/models/beli-shop.model'
+import { useNumberFormat } from '@react-input/number-format'
 import { Loader2 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
@@ -60,6 +61,11 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
 
   const [phases, setPhases] = useState<Phase[]>([])
 
+  const inputRef = useNumberFormat({
+    locales: 'en',
+    maximumFractionDigits: 2,
+  })
+
   const form = useForm<ProductForm>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -73,6 +79,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       remainingAmount: undefined,
     },
   })
+
   const { refetchProducts } = useProducts()
 
   const { isSubmitting } = form.formState
@@ -254,6 +261,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
                     <FormControl>
                       <Input
+                        ref={inputRef}
                         placeholder='Nhap gia'
                         className='col-span-4'
                         onChange={(e) => {
@@ -372,6 +380,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        ref={inputRef}
                         placeholder='so luong'
                         className='col-span-4'
                         onChange={(e) => {
@@ -393,6 +402,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        ref={inputRef}
                         placeholder='nhap phi van chuyen'
                         className='col-span-4'
                         onChange={(e) => {
@@ -414,6 +424,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        ref={inputRef}
                         placeholder='nahp so luong con lai'
                         className='col-span-4'
                         onChange={(e) => {
