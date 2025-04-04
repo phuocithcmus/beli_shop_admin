@@ -42,11 +42,6 @@ export const sidebarData: SidebarData = {
           icon: IconLayoutDashboard,
         },
         {
-          title: 'Tasks',
-          url: '/tasks',
-          icon: IconChecklist,
-        },
-        {
           title: 'Fees',
           url: '/fees',
           icon: IconChecklist,
@@ -65,17 +60,6 @@ export const sidebarData: SidebarData = {
           title: 'Revenues',
           url: '/revenues',
           icon: IconPackages,
-        },
-        // {
-        //   title: 'Chats',
-        //   url: '/chats',
-        //   badge: '3',
-        //   icon: IconMessages,
-        // },
-        {
-          title: 'Users',
-          url: '/users',
-          icon: IconUsers,
         },
       ],
     },
