@@ -14,6 +14,8 @@ export const columns: ColumnDef<Revenue>[] = [
       return <div>{productCode}</div>
     },
     meta: { className: 'w-36' },
+    enableHiding: false,
+    enableSorting: false,
   },
   {
     id: 'channel',

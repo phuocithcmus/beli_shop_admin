@@ -6,6 +6,7 @@ import { DataTableColumnHeader } from './data-table-column-header'
 export const columns: ColumnDef<Product>[] = [
   {
     id: 'code',
+    accessorKey: 'code',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Ma san pham' />
     ),
@@ -16,7 +17,7 @@ export const columns: ColumnDef<Product>[] = [
     meta: { className: 'w-36' },
   },
   {
-    id: 'phaseCode',
+    accessorKey: 'phaseCode',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Ma Dot' />
     ),
@@ -24,25 +25,30 @@ export const columns: ColumnDef<Product>[] = [
       const { phaseName } = row.original
       return <div>{phaseName}</div>
     },
-    meta: { className: 'w-36' },
+    meta: { className: 'w-36', filterVariant: 'select' },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
   },
   {
     accessorKey: 'productType',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Loai san pham' />
     ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap'>{row.getValue('productType')}</div>
-    ),
+    cell: ({ row }) => {
+      const { productType } = row.original
+      return <div className='w-fit text-nowrap'>{productType}</div>
+    },
   },
   {
     accessorKey: 'formType',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Form' />
     ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap'>{row.getValue('formType')}</div>
-    ),
+    cell: ({ row }) => {
+      const { formType } = row.original
+      return <div className='w-fit text-nowrap'>{formType}</div>
+    },
   },
   {
     accessorKey: 'size',
@@ -52,6 +58,9 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => (
       <div className='w-fit text-nowrap'>{row.getValue('size')}</div>
     ),
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
   },
   {
     accessorKey: 'color',

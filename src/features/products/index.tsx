@@ -7,11 +7,11 @@ import { columns } from './components/products-columns'
 import { ProductsDialogs } from './components/products-dialogs'
 import { ProductsPrimaryButtons } from './components/products-primary-buttons'
 import { ProductsTable } from './components/products-table'
-import PhasesProvider from './context/products-context'
+import ProductsProvider from './context/products-context'
 
 export default function Products() {
   return (
-    <PhasesProvider>
+    <ProductsProvider>
       <Header fixed>
         <Search />
         <div className='ml-auto flex items-center space-x-4'>
@@ -33,6 +33,6 @@ export default function Products() {
         </div>
       </Main>
       <ProductsDialogs />
-    </PhasesProvider>
+    </ProductsProvider>
   )
 }
