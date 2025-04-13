@@ -8,8 +8,8 @@ type FeesDialogType = 'invite' | 'add' | 'edit' | 'delete'
 interface FeesContextType {
   open: FeesDialogType | null
   setOpen: (str: FeesDialogType | null) => void
-  currentRow: Fee | null
-  setCurrentRow: React.Dispatch<React.SetStateAction<Fee | null>>
+  currentRow: Fee | undefined
+  setCurrentRow: React.Dispatch<React.SetStateAction<Fee | undefined>>
   fees: Fee[]
   refetchFees: () => Promise<void>
 }
@@ -22,7 +22,7 @@ interface Props {
 
 export default function FeesProvider({ children }: Props) {
   const [open, setOpen] = useDialogState<FeesDialogType>(null)
-  const [currentRow, setCurrentRow] = useState<Fee | null>(null)
+  const [currentRow, setCurrentRow] = useState<Fee | undefined>()
 
   const [fees, setFees] = useState<Fee[]>([])
 

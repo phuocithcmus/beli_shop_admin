@@ -11,7 +11,7 @@ import {
   ProductType,
 } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
-import { Fee, Phase } from '@/services/models/beli-shop.model'
+import { Phase, Product } from '@/services/models/beli-shop.model'
 import { useNumberFormat } from '@react-input/number-format'
 import { Loader2 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
@@ -51,7 +51,7 @@ const formSchema = z.object({
 type ProductForm = z.infer<typeof formSchema>
 
 interface Props {
-  currentRow?: Fee
+  currentRow?: Product
   open: boolean
   onOpenChange: (open: boolean) => void
 }
@@ -185,6 +185,23 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
     }
   }, [productType, formType, size, color])
 
+  useEffect(() => {
+    if (isEdit === true && currentRow) {
+      form.setValue('code', currentRow.code)
+      form.setValue('phaseCode', currentRow.phaseCode)
+      form.setValue('productType', currentRow.productType)
+      form.setValue('formType', currentRow.formType)
+      form.setValue('amount', currentRow.amount)
+      form.setValue('transferFee', currentRow.transferFee)
+      form.setValue('remainingAmount', currentRow.remainingAmount)
+      form.setValue('price', currentRow.price)
+      form.setValue('size', currentRow.size)
+      form.setValue('color', currentRow.color)
+    } else {
+      form.reset()
+    }
+  }, [isEdit, currentRow])
+
   return (
     <Dialog
       open={open}
@@ -261,6 +278,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value}
                         ref={inputRef}
                         placeholder='Nhap gia'
                         className='col-span-4'
@@ -380,6 +398,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value}
                         ref={inputRef}
                         placeholder='so luong'
                         className='col-span-4'
@@ -402,6 +421,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value}
                         ref={inputRef}
                         placeholder='nhap phi van chuyen'
                         className='col-span-4'
@@ -424,6 +444,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value}
                         ref={inputRef}
                         placeholder='nahp so luong con lai'
                         className='col-span-4'

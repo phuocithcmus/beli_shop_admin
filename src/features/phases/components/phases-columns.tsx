@@ -1,6 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Phase } from '@/services/models/beli-shop.model'
 import { DataTableColumnHeader } from './data-table-column-header'
+import { DataTableRowActions } from './data-table-row-actions'
 
 export const columns: ColumnDef<Phase>[] = [
   // {
@@ -31,5 +32,9 @@ export const columns: ColumnDef<Phase>[] = [
     cell: ({ row }) => (
       <div className='w-fit text-nowrap'>{row.getValue('phaseName')}</div>
     ),
+  },
+  {
+    id: 'actions',
+    cell: DataTableRowActions,
   },
 ]

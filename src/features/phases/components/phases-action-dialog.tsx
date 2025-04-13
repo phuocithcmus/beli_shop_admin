@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BeliShopService } from '@/services/beli-shop.service'
-import { Fee } from '@/services/models/beli-shop.model'
+import { Phase } from '@/services/models/beli-shop.model'
 import { Loader2 } from 'lucide-react'
 import moment from 'moment'
 import { toast } from '@/hooks/use-toast'
@@ -45,7 +45,7 @@ const formSchema = z.object({
 type FeeForm = z.infer<typeof formSchema>
 
 interface Props {
-  currentRow?: Fee
+  currentRow?: Phase
   open: boolean
   onOpenChange: (open: boolean) => void
 }
@@ -114,6 +114,16 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       form.setValue('phaseCode', date_nhap)
     }
   }, [date])
+
+  useEffect(() => {
+    if (isEdit === true && currentRow) {
+      form.setValue('phaseCode', currentRow.phaseCode)
+      form.setValue('date', currentRow.createdAt)
+      form.setValue('phaseName', currentRow.phaseName)
+    } else {
+      form.reset()
+    }
+  }, [isEdit, currentRow])
 
   return (
     <Dialog

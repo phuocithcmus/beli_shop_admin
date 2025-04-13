@@ -66,6 +66,12 @@ class BeliShopService {
     const response = await this.httpClient.post<Revenue>('/revenue', data)
     return response
   }
+
+  //PACTH
+  public async updateFee(data: Fee): Promise<Fee> {
+    const response = await this.httpClient.patch<Fee>('/fee', { ...data })
+    return response
+  }
 }
 
 export { BeliShopService }

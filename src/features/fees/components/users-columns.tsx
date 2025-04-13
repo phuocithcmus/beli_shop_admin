@@ -1,8 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Fee } from '@/services/models/beli-shop.model'
 import { formatNumber } from '@/lib/utils'
-import LongText from '@/components/long-text'
 import { DataTableColumnHeader } from './data-table-column-header'
+import { DataTableRowActions } from './data-table-row-actions'
 
 export const columns: ColumnDef<Fee>[] = [
   // {
@@ -72,8 +72,8 @@ export const columns: ColumnDef<Fee>[] = [
     cell: ({ row }) => <div>{formatNumber(row.getValue('feeAmount'))}</div>,
     enableSorting: false,
   },
-  // {
-  //   id: 'actions',
-  //   cell: DataTableRowActions,
-  // },
+  {
+    id: 'actions',
+    cell: DataTableRowActions,
+  },
 ]

@@ -2,6 +2,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Product } from '@/services/models/beli-shop.model'
 import { formatCurrency } from '@/lib/utils'
 import { DataTableColumnHeader } from './data-table-column-header'
+import { DataTableRowActions } from './data-table-row-actions'
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -110,5 +111,9 @@ export const columns: ColumnDef<Product>[] = [
         {formatCurrency(row.getValue('price'))}
       </div>
     ),
+  },
+  {
+    id: 'actions',
+    cell: DataTableRowActions,
   },
 ]

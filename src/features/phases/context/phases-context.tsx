@@ -8,8 +8,8 @@ type PhasesDialogType = 'invite' | 'add' | 'edit' | 'delete'
 interface PhasesContextType {
   open: PhasesDialogType | null
   setOpen: (str: PhasesDialogType | null) => void
-  currentRow: Phase | null
-  setCurrentRow: React.Dispatch<React.SetStateAction<Phase | null>>
+  currentRow: Phase | undefined
+  setCurrentRow: React.Dispatch<React.SetStateAction<Phase | undefined>>
   phases: Phase[]
   refetchPhases: () => Promise<void>
 }
@@ -22,7 +22,7 @@ interface Props {
 
 export default function PhasesProvider({ children }: Props) {
   const [open, setOpen] = useDialogState<PhasesDialogType>(null)
-  const [currentRow, setCurrentRow] = useState<Phase | null>(null)
+  const [currentRow, setCurrentRow] = useState<Phase | undefined>()
 
   const [phases, setPhases] = useState<Phase[]>([])
 

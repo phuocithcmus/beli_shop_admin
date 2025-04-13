@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -56,6 +57,7 @@ const FeeTypeOptions = [
 
 export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
   const isEdit = !!currentRow
+
   const form = useForm<FeeForm>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -77,6 +79,12 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
   const onSubmit = async (values: FeeForm) => {
     try {
       if (isEdit === true) {
+        await BeliShopService.instance.updateFee({
+          ...currentRow,
+          feeAmount: values.feeAmount,
+          feePlatform: values.feePlatform,
+          feeType: values.feeType,
+        })
         toast({
           title: 'Success',
           description: 'User updated successfully.',
@@ -87,9 +95,8 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
           title: 'Success',
           description: 'User created successfully.',
         })
-
-        await refetchFees()
       }
+      await refetchFees()
     } catch (e) {
       toast({
         title: 'Error',
@@ -111,6 +118,14 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
     })
     onOpenChange(false)
   }
+
+  useEffect(() => {
+    if (isEdit === true && currentRow) {
+      form.setValue('feeAmount', currentRow.feeAmount)
+      form.setValue('feePlatform', currentRow.feePlatform)
+      form.setValue('feeType', currentRow.feeType)
+    }
+  }, [isEdit, currentRow])
 
   return (
     <Dialog
@@ -193,6 +208,7 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value}
                         ref={inputRef}
                         placeholder='Nhap tong phi'
                         className='col-span-4'
@@ -210,6 +226,7 @@ export function FeesActionDialog({ currentRow, open, onOpenChange }: Props) {
         </div>
         <DialogFooter>
           <Button
+            onClick={form.handleSubmit(onSubmit)}
             disabled={isSubmitting === true}
             type='submit'
             form='user-form'

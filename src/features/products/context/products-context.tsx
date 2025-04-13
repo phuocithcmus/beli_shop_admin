@@ -8,8 +8,8 @@ type ProductsDialogType = 'invite' | 'add' | 'edit' | 'delete'
 interface ProductsContextType {
   open: ProductsDialogType | null
   setOpen: (str: ProductsDialogType | null) => void
-  currentRow: Product | null
-  setCurrentRow: React.Dispatch<React.SetStateAction<Product | null>>
+  currentRow: Product | undefined
+  setCurrentRow: React.Dispatch<React.SetStateAction<Product | undefined>>
   products: Product[]
   refetchProducts: () => Promise<void>
 }
@@ -22,7 +22,7 @@ interface Props {
 
 export default function ProductsProvider({ children }: Props) {
   const [open, setOpen] = useDialogState<ProductsDialogType>(null)
-  const [currentRow, setCurrentRow] = useState<Product | null>(null)
+  const [currentRow, setCurrentRow] = useState<Product | undefined>()
 
   const [products, setProducts] = useState<Product[]>([])
 
