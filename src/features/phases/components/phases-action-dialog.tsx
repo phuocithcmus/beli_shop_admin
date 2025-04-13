@@ -67,6 +67,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
   const onSubmit = async (values: FeeForm) => {
     try {
       if (isEdit === true) {
+        await BeliShopService.instance.updatePhase({
+          ...currentRow,
+          phaseCode: values.phaseCode,
+          phaseName: String(values.phaseName),
+        })
+
         toast({
           title: 'Success',
           description: 'User updated successfully.',
@@ -80,9 +86,8 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
           title: 'Success',
           description: 'User created successfully.',
         })
-
-        await refetchPhases()
       }
+      await refetchPhases()
     } catch (e) {
       toast({
         title: 'Error',

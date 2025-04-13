@@ -86,8 +86,20 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
 
   const onSubmit = async (values: ProductForm) => {
     try {
-      console.log('values', values)
       if (isEdit === true) {
+        await BeliShopService.instance.updateProduct({
+          ...currentRow,
+          code: values.code,
+          phaseCode: values.phaseCode,
+          productType: values.productType,
+          formType: values.formType,
+          amount: values.amount,
+          transferFee: values.transferFee,
+          remainingAmount: values.remainingAmount,
+          price: values.price,
+          size: values.size,
+          color: values.color,
+        })
         toast({
           title: 'Success',
           description: 'Product updated successfully.',
@@ -100,9 +112,8 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
           title: 'Success',
           description: 'Product created successfully.',
         })
-
-        await refetchProducts()
       }
+      await refetchProducts()
     } catch (e) {
       toast({
         title: 'Error',
