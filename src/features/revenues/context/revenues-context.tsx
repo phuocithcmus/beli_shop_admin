@@ -8,8 +8,8 @@ type RevenuesDialogType = 'invite' | 'add' | 'edit' | 'delete'
 interface RevenuesContextType {
   open: RevenuesDialogType | null
   setOpen: (str: RevenuesDialogType | null) => void
-  currentRow: Revenue | null
-  setCurrentRow: React.Dispatch<React.SetStateAction<Revenue | null>>
+  currentRow: Revenue | undefined
+  setCurrentRow: React.Dispatch<React.SetStateAction<Revenue | undefined>>
   revenues: Revenue[]
   refetchRevenues: () => Promise<void>
 }
@@ -22,7 +22,7 @@ interface Props {
 
 export default function RevenuesProvider({ children }: Props) {
   const [open, setOpen] = useDialogState<RevenuesDialogType>(null)
-  const [currentRow, setCurrentRow] = useState<Revenue | null>(null)
+  const [currentRow, setCurrentRow] = useState<Revenue | undefined>(undefined)
 
   const [revenues, setRevenues] = useState<Revenue[]>([])
 

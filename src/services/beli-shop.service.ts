@@ -84,6 +84,17 @@ class BeliShopService {
     })
     return response
   }
+
+  //DELETE
+  public async deleteProduct(id: string): Promise<boolean> {
+    const response = await this.httpClient.delete<boolean>(`/product/${id}`)
+    return response
+  }
+
+  public async deleteRevenue(id: string): Promise<boolean> {
+    const response = await this.httpClient.delete<boolean>(`/revenue/${id}`)
+    return response
+  }
 }
 
 export { BeliShopService }
