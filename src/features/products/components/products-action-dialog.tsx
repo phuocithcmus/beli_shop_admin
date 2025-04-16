@@ -171,17 +171,21 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
 
   const ProductColorOptions = [
     { label: 'Trang', value: ProductColor.Trang },
-    { label: 'Xanh', value: ProductColor.Xanh },
-    { label: 'Do', value: ProductColor.Do },
     { label: 'Den', value: ProductColor.Den },
-    { label: 'Vang', value: ProductColor.Vang },
-    { label: 'Tim', value: ProductColor.Tim },
-    { label: 'Hong', value: ProductColor.Hong },
+    { label: 'Kem', value: ProductColor.Kem },
+    { label: 'Choco', value: ProductColor.Choco },
     { label: 'Xam', value: ProductColor.Xam },
-    { label: 'Cam', value: ProductColor.Cam },
-    { label: 'Bac', value: ProductColor.Bac },
-    { label: 'Xanh Duong', value: ProductColor.XanhDuong },
-    { label: 'Xanh La', value: ProductColor.XanhLa },
+    { label: 'Navy', value: ProductColor.Navy },
+    { label: 'NauBo', value: ProductColor.NauBo },
+    { label: 'NauDat', value: ProductColor.NauDat },
+    { label: 'Vodau', value: ProductColor.Vodau },
+    { label: 'VeChai', value: ProductColor.VeChai },
+    { label: 'HongSen', value: ProductColor.HongSen },
+    { label: 'XanhBien', value: ProductColor.XanhBien },
+    { label: 'Do', value: ProductColor.Do },
+    { label: 'XanhBich', value: ProductColor.XanhBich },
+    { label: 'Cafe', value: ProductColor.Cafe },
+    { label: 'Maroon', value: ProductColor.Maroon },
   ]
 
   const productType = form.watch('productType')
@@ -190,7 +194,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
   const color = form.watch('color')
 
   useEffect(() => {
-    if (!isEdit && productType && formType && size && color) {
+    if (productType && formType && size && color) {
       const formatCode = `${formType}_${color}_${productType}_${size}`
       form.setValue('code', formatCode)
     }
