@@ -62,7 +62,6 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
 
   const inputRef = useNumberFormat({
     locales: 'en',
-    maximumFractionDigits: 2,
   })
 
   const form = useForm<ProductForm>({
@@ -437,7 +436,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                         placeholder='nhap phi van chuyen'
                         className='col-span-4'
                         onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
+                          field.onChange(e.target.value)
                         }}
                       />
                     </FormControl>
