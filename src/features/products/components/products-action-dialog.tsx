@@ -43,7 +43,6 @@ const formSchema = z.object({
   formType: z.string().min(3),
   amount: z.number(),
   transferFee: z.number(),
-  remainingAmount: z.number(),
   price: z.number(),
   size: z.string(),
   color: z.string(),
@@ -76,7 +75,6 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       amount: undefined,
       transferFee: undefined,
       price: undefined,
-      remainingAmount: undefined,
     },
   })
 
@@ -95,7 +93,6 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
           formType: values.formType,
           amount: values.amount,
           transferFee: values.transferFee,
-          remainingAmount: values.remainingAmount,
           price: values.price,
           size: values.size,
           color: values.color,
@@ -208,7 +205,6 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       form.setValue('formType', currentRow.formType)
       form.setValue('amount', currentRow.amount)
       form.setValue('transferFee', currentRow.transferFee)
-      form.setValue('remainingAmount', currentRow.remainingAmount)
       form.setValue('price', currentRow.price)
       form.setValue('size', currentRow.size)
       form.setValue('color', currentRow.color)
@@ -439,29 +435,6 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                         value={field.value}
                         ref={inputRef}
                         placeholder='nhap phi van chuyen'
-                        className='col-span-4'
-                        onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage className='col-span-4 col-start-3' />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='remainingAmount'
-                render={({ field }) => (
-                  <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>
-                      So luong con lai
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        value={field.value}
-                        ref={inputRef}
-                        placeholder='nahp so luong con lai'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(e.target.value))

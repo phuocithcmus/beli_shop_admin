@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { IconAlertTriangle } from '@tabler/icons-react'
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Revenue } from '@/services/models/beli-shop.model'
 import { toast } from '@/hooks/use-toast'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { ConfirmDialog } from '@/components/confirm-dialog'
+import { useRevenues } from '../context/revenues-context'
 
 interface Props {
   open: boolean
@@ -19,10 +19,12 @@ export function RevenuesDeleteDialog({
   onOpenChange,
   currentRow,
 }: Props) {
-  const [value, setValue] = useState('')
+  const { refetchRevenues } = useRevenues()
 
   const handleDelete = async () => {
     await BeliShopService.instance.deleteRevenue(currentRow.id)
+
+    await refetchRevenues()
 
     onOpenChange(false)
     toast({
