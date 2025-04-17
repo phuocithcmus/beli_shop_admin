@@ -12,7 +12,12 @@ import {
 } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Phase, Product } from '@/services/models/beli-shop.model'
-import { useNumberFormat } from '@react-input/number-format'
+import {
+  InputNumberFormat,
+  useNumberFormat,
+  unformat,
+  format,
+} from '@react-input/number-format'
 import { Loader2 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
@@ -80,6 +85,8 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
   const { refetchProducts } = useProducts()
 
   const { isSubmitting } = form.formState
+
+  console.log('values', form.getValues())
 
   const onSubmit = async (values: ProductForm) => {
     try {
@@ -431,12 +438,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        value={field.value}
+                        value={format(field.value)}
                         ref={inputRef}
                         placeholder='nhap phi van chuyen'
                         className='col-span-4'
                         onChange={(e) => {
-                          field.onChange(e.target.value)
+                          field.onChange(parseInt(unformat(e.target.value)))
                         }}
                       />
                     </FormControl>
