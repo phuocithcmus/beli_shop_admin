@@ -440,7 +440,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                       <Input
                         value={field.value ? format(field.value) : undefined}
                         ref={inputRef}
-                        placeholder='Nhap phi van chuyen'
+                        placeholder='Nhap phi goi hang'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(unformat(e.target.value)))
