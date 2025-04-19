@@ -45,6 +45,7 @@ export interface Revenue {
   createdAt: number
   updatedAt: number
   receivedAmount: number
+  packageFee: number
 }
 
 export interface RevenueFee {
@@ -84,6 +85,7 @@ export interface CreateRevenueDto {
   receivedAmount: number
   productId: string
   amount: number
+  packageFee: number
 }
 
 export interface UpdateRevenueDto {
@@ -94,5 +96,5 @@ export interface UpdateRevenueDto {
   receivedAmount: number
   productId: string
   amount: number
-  fees: string
+  packageFee: number
 }

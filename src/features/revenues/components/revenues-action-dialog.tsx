@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { BeliPlatform } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Phase, Product, Revenue } from '@/services/models/beli-shop.model'
-import { useNumberFormat, format, unformat } from '@react-input/number-format'
+import { format, unformat, useNumberFormat } from '@react-input/number-format'
 import { Loader2 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
@@ -51,6 +51,7 @@ const formSchema = z.object({
   receivedAmount: z.number(),
   productId: z.string(),
   amount: z.number(),
+  packageFee: z.number(),
   phaseCode: z.string().optional(),
 })
 type ProductForm = z.infer<typeof formSchema>
@@ -82,6 +83,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
       productId: undefined,
       amount: undefined,
       phaseCode: undefined,
+      packageFee: undefined,
     },
   })
   const { refetchRevenues } = useRevenues()
@@ -94,7 +96,6 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
         await BeliShopService.instance.updateRevenue({
           ...currentRow,
           ...values,
-          fees: '',
         })
         toast({
           title: 'Success',
@@ -184,6 +185,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
         form.setValue('receivedAmount', currentRow.receivedAmount)
         form.setValue('productId', currentRow.productId)
         form.setValue('amount', currentRow.amount)
+        form.setValue('packageFee', currentRow.packageFee)
         const products = await BeliShopService.instance.getProducts()
 
         const product = products.find(
@@ -337,7 +339,9 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 name='price'
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
+                    <FormLabel className='col-span-2 text-right'>
+                      Gia Dang ban
+                    </FormLabel>
                     <FormControl>
                       <Input
                         value={field.value ? format(field.value) : undefined}
@@ -359,7 +363,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
                     <FormLabel className='col-span-2 text-right'>
-                      Gia ban
+                      Gia Da Khuyen mai
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -414,6 +418,29 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                         value={field.value ? format(field.value) : undefined}
                         ref={inputRef}
                         placeholder='Nhap so luong'
+                        className='col-span-4'
+                        onChange={(e) => {
+                          field.onChange(parseInt(unformat(e.target.value)))
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage className='col-span-4 col-start-3' />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='packageFee'
+                render={({ field }) => (
+                  <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
+                    <FormLabel className='col-span-2 text-right'>
+                      Phi goi hang
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        value={field.value ? format(field.value) : undefined}
+                        ref={inputRef}
+                        placeholder='Nhap phi van chuyen'
                         className='col-span-4'
                         onChange={(e) => {
                           field.onChange(parseInt(unformat(e.target.value)))
