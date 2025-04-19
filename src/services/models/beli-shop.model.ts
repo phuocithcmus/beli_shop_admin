@@ -85,3 +85,14 @@ export interface CreateRevenueDto {
   productId: string
   amount: number
 }
+
+export interface UpdateRevenueDto {
+  id: string
+  channel: string
+  price: number
+  sellPrice: number
+  receivedAmount: number
+  productId: string
+  amount: number
+  fees: string
+}

@@ -7,9 +7,20 @@ export function RevenuesDialogs() {
   return (
     <>
       <PhasesActionDialog
-        key='user-add'
+        key='revenue-add'
         open={open === 'add'}
         onOpenChange={() => setOpen('add')}
+      />
+      <PhasesActionDialog
+        key='revenue-add'
+        open={open === 'edit'}
+        onOpenChange={() => {
+          setOpen('edit')
+          setTimeout(() => {
+            setCurrentRow(undefined)
+          }, 500)
+        }}
+        currentRow={currentRow}
       />
 
       {currentRow ? (

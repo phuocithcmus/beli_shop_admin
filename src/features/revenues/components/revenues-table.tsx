@@ -27,6 +27,7 @@ import {
 } from '@/components/ui/table'
 import { useRevenues } from '../context/revenues-context'
 import { DataTablePagination } from './data-table-pagination'
+import { DataTableToolbar } from './data-table-toolbar'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -158,6 +159,7 @@ export function RevenuesTable({ columns }: DataTableProps) {
           </CardContent>
         </Card>
       </div>
+      <DataTableToolbar table={table} />
       <div className='rounded-md border'>
         <Table>
           <TableHeader>

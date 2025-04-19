@@ -6,11 +6,19 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BeliPlatform } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
-import { Fee, Phase, Product } from '@/services/models/beli-shop.model'
-import { useNumberFormat } from '@react-input/number-format'
+import { Phase, Product, Revenue } from '@/services/models/beli-shop.model'
+import { useNumberFormat, format, unformat } from '@react-input/number-format'
 import { Loader2 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
 import {
   Dialog,
   DialogContent,
@@ -28,6 +36,11 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { useRevenues } from '../context/revenues-context'
 
@@ -43,7 +56,7 @@ const formSchema = z.object({
 type ProductForm = z.infer<typeof formSchema>
 
 interface Props {
-  currentRow?: Fee
+  currentRow?: Revenue
   open: boolean
   onOpenChange: (open: boolean) => void
 }
@@ -77,21 +90,24 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
 
   const onSubmit = async (values: ProductForm) => {
     try {
-      console.log('values', values)
       if (isEdit === true) {
+        await BeliShopService.instance.updateRevenue({
+          ...currentRow,
+          ...values,
+          fees: '',
+        })
         toast({
           title: 'Success',
-          description: 'Product updated successfully.',
+          description: 'Revenue updated successfully.',
         })
       } else {
         await BeliShopService.instance.createRevenues(values)
         toast({
           title: 'Success',
-          description: 'Product created successfully.',
+          description: 'Revenue created successfully.',
         })
-
-        await refetchRevenues()
       }
+      await refetchRevenues()
     } catch (e) {
       toast({
         title: 'Error',
@@ -115,6 +131,8 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
   }
 
   const phasesCode = form.watch('phaseCode')
+
+  console.log('phasesCode', phasesCode)
 
   const fetchProducts = async (phasesCode?: string) => {
     if (!phasesCode) {
@@ -156,6 +174,31 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
     { label: 'Tiktok', value: BeliPlatform.Tiktok },
     { label: 'Tay', value: BeliPlatform.TAY },
   ]
+
+  useEffect(() => {
+    ;(async () => {
+      if (isEdit === true && currentRow) {
+        form.setValue('channel', currentRow.channel)
+        form.setValue('price', currentRow.price)
+        form.setValue('sellPrice', currentRow.sellPrice)
+        form.setValue('receivedAmount', currentRow.receivedAmount)
+        form.setValue('productId', currentRow.productId)
+        form.setValue('amount', currentRow.amount)
+        const products = await BeliShopService.instance.getProducts()
+
+        const product = products.find(
+          (product) => product.id === currentRow.productId
+        )
+
+        console.log('product', product)
+        if (product) {
+          form.setValue('phaseCode', product.phaseCode)
+        }
+      } else {
+        form.reset()
+      }
+    })()
+  }, [isEdit, currentRow])
 
   return (
     <Dialog
@@ -214,6 +257,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     <FormLabel className='col-span-2 text-right'>Dot</FormLabel>
                     <FormControl>
                       <SelectDropdown
+                        isControlled
                         defaultValue={field.value}
                         onValueChange={field.onChange}
                         placeholder='Chon dot'
@@ -238,7 +282,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                       San pham
                     </FormLabel>
                     <FormControl>
-                      <SelectDropdown
+                      {/* <SelectDropdown
                         defaultValue={field.value}
                         onValueChange={field.onChange}
                         placeholder='chon san pham'
@@ -247,7 +291,41 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                           label,
                           value,
                         }))}
-                      />
+                      /> */}
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant='outline'
+                            className='w-[289px] justify-start text-left font-normal'
+                          >
+                            {ProductsOptions.find(
+                              (option) => option.value === field.value
+                            )?.label ?? 'Chon san pham'}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className='w-[200px] p-0' align='start'>
+                          <Command>
+                            <CommandInput placeholder='Search' />
+                            <CommandList>
+                              <CommandEmpty>No results found.</CommandEmpty>
+                              <CommandGroup>
+                                {ProductsOptions.map((option) => {
+                                  return (
+                                    <CommandItem
+                                      key={option.value}
+                                      onSelect={() => {
+                                        form.setValue('productId', option.value)
+                                      }}
+                                    >
+                                      {option.label}
+                                    </CommandItem>
+                                  )
+                                })}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
                     </FormControl>
                     <FormMessage className='col-span-4 col-start-3' />
                   </FormItem>
@@ -262,11 +340,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value ? format(field.value) : undefined}
                         ref={inputRef}
                         placeholder='Nhap gia'
                         className='col-span-4'
                         onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
+                          field.onChange(parseInt(unformat(e.target.value)))
                         }}
                       />
                     </FormControl>
@@ -284,11 +363,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value ? format(field.value) : undefined}
                         ref={inputRef}
                         placeholder='Nhap gia ban'
                         className='col-span-4'
                         onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
+                          field.onChange(parseInt(unformat(e.target.value)))
                         }}
                       />
                     </FormControl>
@@ -308,11 +388,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value ? format(field.value) : undefined}
                         ref={inputRef}
                         placeholder='Nhap so tien'
                         className='col-span-4'
                         onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
+                          field.onChange(parseInt(unformat(e.target.value)))
                         }}
                       />
                     </FormControl>
@@ -330,11 +411,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        value={field.value ? format(field.value) : undefined}
                         ref={inputRef}
                         placeholder='Nhap so luong'
                         className='col-span-4'
                         onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
+                          field.onChange(parseInt(unformat(e.target.value)))
                         }}
                       />
                     </FormControl>

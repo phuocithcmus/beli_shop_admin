@@ -12,12 +12,7 @@ import {
 } from '@/constants'
 import { BeliShopService } from '@/services/beli-shop.service'
 import { Phase, Product } from '@/services/models/beli-shop.model'
-import {
-  InputNumberFormat,
-  useNumberFormat,
-  unformat,
-  format,
-} from '@react-input/number-format'
+import { format, unformat, useNumberFormat } from '@react-input/number-format'
 import { Loader2 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
@@ -295,12 +290,12 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     <FormLabel className='col-span-2 text-right'>Gia</FormLabel>
                     <FormControl>
                       <Input
-                        value={field.value}
+                        value={field.value ? format(field.value) : undefined}
                         ref={inputRef}
                         placeholder='Nhap gia'
                         className='col-span-4'
                         onChange={(e) => {
-                          field.onChange(parseInt(e.target.value))
+                          field.onChange(parseInt(unformat(e.target.value)))
                         }}
                       />
                     </FormControl>
@@ -438,7 +433,7 @@ export function PhasesActionDialog({ currentRow, open, onOpenChange }: Props) {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        value={format(field.value)}
+                        value={field.value ? format(field.value) : undefined}
                         ref={inputRef}
                         placeholder='nhap phi van chuyen'
                         className='col-span-4'

@@ -8,6 +8,7 @@ import {
   Phase,
   Product,
   Revenue,
+  UpdateRevenueDto,
 } from './models/beli-shop.model'
 
 class BeliShopService {
@@ -80,6 +81,13 @@ class BeliShopService {
 
   public async updateProduct(data: Product): Promise<Product> {
     const response = await this.httpClient.patch<Product>('/product', {
+      ...data,
+    })
+    return response
+  }
+
+  public async updateRevenue(data: UpdateRevenueDto): Promise<Revenue> {
+    const response = await this.httpClient.patch<Revenue>('/revenue', {
       ...data,
     })
     return response
