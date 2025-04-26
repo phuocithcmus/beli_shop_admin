@@ -7,6 +7,7 @@ import {
   Fee,
   Phase,
   Product,
+  ProductRemainingAmountDto,
   Revenue,
   UpdateRevenueDto,
 } from './models/beli-shop.model'
@@ -44,6 +45,13 @@ class BeliShopService {
 
   public async getRevenues(): Promise<Revenue[]> {
     const response = await this.httpClient.get<Revenue[]>('/revenue')
+    return response
+  }
+
+  public async getProductRemaining(): Promise<ProductRemainingAmountDto[]> {
+    const response = await this.httpClient.get<ProductRemainingAmountDto[]>(
+      '/product/products-remainning'
+    )
     return response
   }
 

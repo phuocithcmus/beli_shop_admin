@@ -49,11 +49,19 @@ export const columns: ColumnDef<Fee>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Kenh ban' />
     ),
-    cell: ({ row }) => {
-      const { feePlatform } = row.original
-      return <div>{feePlatform}</div>
-    },
-    meta: { className: 'w-36' },
+    columns: [
+      {
+        id: 'feePlatform',
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title='Kenh ban' />
+        ),
+        cell: ({ row }) => {
+          const { feePlatform } = row.original
+          return <div>{feePlatform}</div>
+        },
+        meta: { className: 'w-36' },
+      },
+    ],
   },
   {
     accessorKey: 'feeType',

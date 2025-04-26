@@ -98,3 +98,8 @@ export interface UpdateRevenueDto {
   amount: number
   packageFee: number
 }
+
+export interface ProductRemainingAmountDto {
+  productCode: string
+  remainingAmount: number
+}

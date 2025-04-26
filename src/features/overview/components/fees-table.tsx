@@ -14,7 +14,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { Fee } from '@/services/models/beli-shop.model'
+import { ProductRemainingAmountDto } from '@/services/models/beli-shop.model'
 import {
   Table,
   TableBody,
@@ -23,7 +23,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { useFees } from '../context/fees-context'
+import { useProductsRemaining } from '../context/products-context'
+import { DataTableToolbar } from './data-table-toolbar'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,19 +35,19 @@ declare module '@tanstack/react-table' {
 }
 
 interface DataTableProps {
-  columns: ColumnDef<Fee>[]
+  columns: ColumnDef<ProductRemainingAmountDto>[]
 }
 
-export function FeesTable({ columns }: DataTableProps) {
+export function ProductsRemainingTable({ columns }: DataTableProps) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
 
-  const { fees } = useFees()
+  const { products } = useProductsRemaining()
 
   const table = useReactTable({
-    data: fees,
+    data: products,
     columns,
     state: {
       sorting,
@@ -69,6 +70,7 @@ export function FeesTable({ columns }: DataTableProps) {
 
   return (
     <div className='space-y-4'>
+      <DataTableToolbar table={table} />
       <div className='rounded-md border'>
         <Table>
           <TableHeader>

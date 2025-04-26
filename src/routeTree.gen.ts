@@ -27,6 +27,9 @@ const AuthenticatedProductsIndexLazyImport = createFileRoute(
 const AuthenticatedPhasesIndexLazyImport = createFileRoute(
   '/_authenticated/phases/',
 )()
+const AuthenticatedOverviewIndexLazyImport = createFileRoute(
+  '/_authenticated/overview/',
+)()
 const AuthenticatedFeesIndexLazyImport = createFileRoute(
   '/_authenticated/fees/',
 )()
@@ -71,6 +74,15 @@ const AuthenticatedPhasesIndexLazyRoute =
     import('./routes/_authenticated/phases/index.lazy').then((d) => d.Route),
   )
 
+const AuthenticatedOverviewIndexLazyRoute =
+  AuthenticatedOverviewIndexLazyImport.update({
+    id: '/overview/',
+    path: '/overview/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/overview/index.lazy').then((d) => d.Route),
+  )
+
 const AuthenticatedFeesIndexLazyRoute = AuthenticatedFeesIndexLazyImport.update(
   {
     id: '/fees/',
@@ -106,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFeesIndexLazyImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/overview/': {
+      id: '/_authenticated/overview/'
+      path: '/overview'
+      fullPath: '/overview'
+      preLoaderRoute: typeof AuthenticatedOverviewIndexLazyImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/phases/': {
       id: '/_authenticated/phases/'
       path: '/phases'
@@ -135,6 +154,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedFeesIndexLazyRoute: typeof AuthenticatedFeesIndexLazyRoute
+  AuthenticatedOverviewIndexLazyRoute: typeof AuthenticatedOverviewIndexLazyRoute
   AuthenticatedPhasesIndexLazyRoute: typeof AuthenticatedPhasesIndexLazyRoute
   AuthenticatedProductsIndexLazyRoute: typeof AuthenticatedProductsIndexLazyRoute
   AuthenticatedRevenuesIndexLazyRoute: typeof AuthenticatedRevenuesIndexLazyRoute
@@ -143,6 +163,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedFeesIndexLazyRoute: AuthenticatedFeesIndexLazyRoute,
+  AuthenticatedOverviewIndexLazyRoute: AuthenticatedOverviewIndexLazyRoute,
   AuthenticatedPhasesIndexLazyRoute: AuthenticatedPhasesIndexLazyRoute,
   AuthenticatedProductsIndexLazyRoute: AuthenticatedProductsIndexLazyRoute,
   AuthenticatedRevenuesIndexLazyRoute: AuthenticatedRevenuesIndexLazyRoute,
@@ -155,6 +176,7 @@ export interface FileRoutesByFullPath {
   '': typeof AuthenticatedRouteRouteWithChildren
   '/': typeof AuthenticatedIndexRoute
   '/fees': typeof AuthenticatedFeesIndexLazyRoute
+  '/overview': typeof AuthenticatedOverviewIndexLazyRoute
   '/phases': typeof AuthenticatedPhasesIndexLazyRoute
   '/products': typeof AuthenticatedProductsIndexLazyRoute
   '/revenues': typeof AuthenticatedRevenuesIndexLazyRoute
@@ -163,6 +185,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/fees': typeof AuthenticatedFeesIndexLazyRoute
+  '/overview': typeof AuthenticatedOverviewIndexLazyRoute
   '/phases': typeof AuthenticatedPhasesIndexLazyRoute
   '/products': typeof AuthenticatedProductsIndexLazyRoute
   '/revenues': typeof AuthenticatedRevenuesIndexLazyRoute
@@ -173,6 +196,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/fees/': typeof AuthenticatedFeesIndexLazyRoute
+  '/_authenticated/overview/': typeof AuthenticatedOverviewIndexLazyRoute
   '/_authenticated/phases/': typeof AuthenticatedPhasesIndexLazyRoute
   '/_authenticated/products/': typeof AuthenticatedProductsIndexLazyRoute
   '/_authenticated/revenues/': typeof AuthenticatedRevenuesIndexLazyRoute
@@ -180,14 +204,22 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/' | '/fees' | '/phases' | '/products' | '/revenues'
+  fullPaths:
+    | ''
+    | '/'
+    | '/fees'
+    | '/overview'
+    | '/phases'
+    | '/products'
+    | '/revenues'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/fees' | '/phases' | '/products' | '/revenues'
+  to: '/' | '/fees' | '/overview' | '/phases' | '/products' | '/revenues'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_authenticated/'
     | '/_authenticated/fees/'
+    | '/_authenticated/overview/'
     | '/_authenticated/phases/'
     | '/_authenticated/products/'
     | '/_authenticated/revenues/'
@@ -220,6 +252,7 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/",
         "/_authenticated/fees/",
+        "/_authenticated/overview/",
         "/_authenticated/phases/",
         "/_authenticated/products/",
         "/_authenticated/revenues/"
@@ -231,6 +264,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/fees/": {
       "filePath": "_authenticated/fees/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/overview/": {
+      "filePath": "_authenticated/overview/index.lazy.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/phases/": {

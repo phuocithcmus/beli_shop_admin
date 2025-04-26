@@ -61,6 +61,11 @@ export const sidebarData: SidebarData = {
           url: '/revenues',
           icon: IconPackages,
         },
+        {
+          title: 'San pham con lai',
+          url: '/overview',
+          icon: IconPackages,
+        },
       ],
     },
     // {
