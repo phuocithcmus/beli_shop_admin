@@ -54,6 +54,10 @@ export function ProductsRemainingTable({ columns }: DataTableProps) {
       columnVisibility,
       rowSelection,
       columnFilters,
+      pagination: {
+        pageIndex: 0,
+        pageSize: 100,
+      },
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
