@@ -1,7 +1,3 @@
-import { HotTable } from '@handsontable/react-wrapper'
-import { registerAllModules } from 'handsontable/registry'
-import 'handsontable/styles/handsontable.min.css'
-import 'handsontable/styles/ht-theme-main.min.css'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
@@ -10,8 +6,6 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { ProductsRemainingTable } from './components/fees-table'
 import { columns } from './components/products-columns'
 import ProductsProvider from './context/products-context'
-
-registerAllModules()
 
 export default function Overview() {
   return (
